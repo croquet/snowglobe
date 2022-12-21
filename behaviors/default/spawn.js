@@ -38,86 +38,67 @@ class CoalPawn {
         this.listen("translationSet", "translated");
         this.listen("rotationSet", "translated");
         this.front_pos = this.actor._cardData.frontPos;//||12;
-        
     }
 
     translated(_data) {
         //this.scrollAreaPawn.say("updateDisplay");
     }
 
-    moveMyself(evt) {
-        if (!evt.ray) {return;}
-
-        let {THREE, v3_add, v3_sub} = Microverse;
-
-        let origin = new THREE.Vector3(...evt.ray.origin);
-        let direction = new THREE.Vector3(...evt.ray.direction);
-        let ray = new THREE.Ray(origin, direction);
-
-        let dragPoint = ray.intersectPlane(
-            this._dragPlane,
-            new Microverse.THREE.Vector3()
-        );
-
-        let down = this.downInfo.downPosition;
-        let drag = dragPoint.toArray();
-
-        let diff = v3_sub(drag, down);
-        let newPos = v3_add(this.downInfo.translation, diff);
-
-        let [x,y,z] = newPos;
-
-        this.set({translation: [this.front_pos,y,z]});
-    }
-
     pointerMove(evt) {
         if (!this.downInfo) {return;}
 
-        if (!this.downInfo.child) {
-            return this.moveMyself(evt);
+        // do a raycast to find objects behind this one
+        let render = this.service("ThreeRenderManager");
+        let objects = render.threeLayerUnion("pointer", "walk");
+        let avatar = this.getMyAvatar();
+        avatar.setRayCast(evt.xy);
+        let hits = avatar.raycaster.intersectObjects(objects);
+
+        // find the first hit that is not this object
+        let renderObject = (obj) => {
+            while (obj && !obj.wcPawn) obj = obj.parent;
+            return obj;
+        }
+        let hit = hits.find(h => renderObject(h.object) !== this.renderObject);
+
+        // if we hit something, move to the hit point, and rotate according to the hit normal
+        let normal = hit?.face?.normal?.toArray();
+        if (normal) {
+            let {q_lookAt} = Microverse;
+            let rotation = q_lookAt([0, 1, 0], [0, 0, 1], normal);
+            let translation = hit.point.toArray();
+            this.set({translation, rotation});
+
+            // remember distance
+            this.downInfo.distance = hit.distance;
+
+            // let other = renderObject(hit.object).wcPawn;
+            // console.log("hit", other.actor.name, "at", translation, "normal", normal);
+            return;
         }
 
-        if (!evt.xyz) {return;}
-        let vec = new Microverse.THREE.Vector3(...evt.xyz);
-        let pInv = this.renderObject.matrixWorld.clone().invert();
-        vec = vec.applyMatrix4(pInv);
-
-        let origDownPoint = this.downInfo.downPosition;
-        let origTranslation = this.downInfo.childTranslation;
-
-        let deltaX = vec.x - origDownPoint.x;
-        let deltaY = vec.y - origDownPoint.y;
-
-        this.downInfo.child.translateTo([origTranslation[0] + deltaX, origTranslation[1] + deltaY, origTranslation[2]]);
-        // console.log(this.downInfo, pVec2);
+        // no hit, so move along at distance along ray
+        let {THREE} = Microverse;
+        let translation = avatar.raycaster.ray.at(this.downInfo.distance, new THREE.Vector3()).toArray();
+        this.set({translation});
     }
 
     pointerDown(evt) {
         if (!evt.xyz) {return;}
-        let {THREE, q_yaw, v3_rotateY} = Microverse;
-
         let avatar = this.getMyAvatar();
-        let yaw = q_yaw(avatar.rotation);
-        let normal = v3_rotateY([0, 0, -1], yaw);
 
-        this._dragPlane = new THREE.Plane();
-        this._dragPlane.setFromNormalAndCoplanarPoint(
-            new THREE.Vector3(...normal),
-            new THREE.Vector3(...evt.xyz)
-        );
-
-        this.downInfo = {translation: this.translation, downPosition: evt.xyz};
+        this.downInfo = {translation: this.translation, downPosition: evt.xyz, distance: evt.distance};
         if (avatar) {
             avatar.addFirstResponder("pointerMove", {}, this);
         }
     }
 
     pointerUp(_evt) {
-        this._dragPlane = null;
         let avatar = this.getMyAvatar();
         if (avatar) {
             avatar.removeFirstResponder("pointerMove", {}, this);
         }
+        this.downInfo = null;
     }
 }
 
