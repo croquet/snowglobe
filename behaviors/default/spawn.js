@@ -1,22 +1,27 @@
 class SpawnActor{
     setup(){
-        this.dataloc = this.__cardData.spawnDataLocation;
-        this.trans = this.__cardData.translation;
+        this.dataloc = this._cardData.spawnDataLocation;
+        this.trans = this._cardData.spawnTranslation;
+        this.spawnScale = this._cardData.spawnScale;
+        this.rot = this._cardData.spawnRotation;
         this.listen("spawn","spawn")
-        this.frontPos = this.__cardData.frontPos;
+        this.frontPos = this._cardData.frontPos;
+        this.addEventListener("pointerDown", "spawn");
+        this.children = [];
     }
     spawn(){
-        let spawn = this.createCard({
+        console.log(this.trans);
+        this.createCard({
             translation: this.trans,
-            scale: [1, 1, 1],
-            rotation: [0, 0, 0, 1],
+            dataScale: this.spawnScale,
+            rotation: this.rot,
             layers: ["pointer"],
             name: "spawned_object",
             cornerRadius: 0.02,
             behaviorModules: ["Coal"],
             fullBright: false,
             shadow: true,
-            singleSided: true,
+            //singleSided: true,
             type: "3d",
             dataLocation: this.dataloc,
             frontPos:12,
