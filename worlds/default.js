@@ -490,7 +490,7 @@ export function init(Constants) {
                 spawnDataTranslation:[0, 0, 0],
                 spawnBehaviors: ["SmallBall", "Coal"],
                 spawnType: "object",
-                spawnRadius: .1,
+                spawnRadius: .2,
 
             }
         },
