@@ -81,11 +81,44 @@ class Text3DPawn {
     }
 }
 
+class SignTextPawn {
+    setup(){
+
+    }
+
+    createText(){
+        const loader = new Microverse.THREE.FontLoader();
+        //let currText = this.text.substring(0,this.currDot);
+        loader.load('./assets/fonts/helvetiker_bold.typeface.json',(font) => {
+            // do something with the font
+            let geometry = new Microverse.THREE.TextGeometry(currText+"_", {
+                font: font,
+                size: .2,
+                height: .01,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: .01,
+                bevelSize: .005,
+                bevelOffset: 0,
+                bevelSegments: 5
+            } );
+            let dot = new Microverse.THREE.Mesh(geometry, this.material);
+            dot.position.set(1,1,1);
+            dot.rotation.set(0,0,0)
+            this.shape.add(dot);
+        });
+    }
+}
+
 export default {
     modules: [
         {
             name: "Text3D",
             pawnBehaviors: [Text3DPawn]
+        },
+        {
+            name: "SignText",
+            pawnBehaviors: [SignTextPawn]
         }
     ]
 }

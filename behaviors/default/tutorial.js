@@ -119,10 +119,55 @@ class DustPawn {
 }
 
 class SnowStormActor {
+ /*
+
+ */
 
 }
 
 class SnowStormPawn {
+    setup(){
+        this.subscribe("storm", "snowStorm","startStorm");
+    }
+    startStorm(){
+        /*
+        when time to dreate flakes:
+        create snow flakes
+        turn the screne white.
+        re-build the world
+        */
+    }
+
+    
+}
+
+class SnowStormMenuPawn {
+    setup() {
+        let menu = document.body.querySelector("#worldMenu");
+        if (menu) {
+            let menuItemDiv = document.createElement("div");
+            menuItemDiv.innerHTML = `<div id="worldMenu-snow" class="menu-label menu-item">
+    <span class="menu-label-text">Turn off Sound</span>
+    <div class="menu-icon load-icon"></div>
+</div>`;
+            let menuItem = menuItemDiv.firstChild;
+            menuItem.addEventListener("click", () => {
+                 let label = menuItem.querySelector(".menu-label-text");
+                 label.textContent = "Snow Storm" ;
+                 this.publish("storm", "snowStorm");});
+            menu.appendChild(menuItem);
+            this.menuItem = menuItem;
+        }
+    }
+    teardown() {
+        let menu = document.body.querySelector("#worldMenu");
+        if (menu) {
+            let menuItem = menu.querySelector("#worldMenu-snow");
+            if (menuItem) {
+                menuItem.remove();
+            }
+        }
+    }
     
 }
 
