@@ -27,8 +27,9 @@ export function init(Constants) {
             card: {
                 name:"world model",
                 type: "3d",
-                fileName: "/memories_globe.zip",
-                dataLocation: "./assets/3D/memories_globe.zip",
+                fileName: "snowglobe.glb",
+                dataLocation: "./assets/3D/snowglobe.glb",
+                dataType: "glb",
                 singleSided: false,
                 shadow: true,
                 layers: ["walk"],
@@ -38,7 +39,7 @@ export function init(Constants) {
                 placeholder: true,
                 placeholderSize: [400, 0.1, 400],
                 placeholderColor: 0x808080,
-                placeholderOffset: [0, 0, 0],
+                placeholderOffset: [0, 34, 0],
             }
         },
         {
