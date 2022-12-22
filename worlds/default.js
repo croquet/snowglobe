@@ -391,9 +391,9 @@ export function init(Constants) {
                 spawnRotation:[Math.PI/2, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
-                spawnBehaviors: ["Coal"],  
+                spawnBehaviors: ["Coal"],
                 spawnType: "3d",
-                spawnRaduis: .2, 
+                spawnRaduis: .2,
                 }
         },
         {
@@ -439,9 +439,9 @@ export function init(Constants) {
                 spawnRotation:[0, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
-                spawnBehaviors: ["Coal"],  
+                spawnBehaviors: ["Coal"],
                 spawnType: "3d",
-                spawnRaduis: .2, 
+                spawnRaduis: .2,
                 }
         },
         {
@@ -463,9 +463,9 @@ export function init(Constants) {
                 spawnRotation:[0, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
-                spawnBehaviors: ["Coal"],  
+                spawnBehaviors: ["Coal"],
                 spawnType: "3d",
-                spawnRaduis: .2, 
+                spawnRaduis: .2,
                 }
         },
     ];
