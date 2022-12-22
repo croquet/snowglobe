@@ -9,10 +9,8 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "demo.js" ,"carrot.js","lights.js", "bouncingBall.js", "tutorial.js", "snowball.js", "openPortal.js", "urlLink.js", "spawn.js" //"cradle.js", // "pendulum.js"
+        "carrot.js","lights.js", "tutorial.js", "snowball.js", "urlLink.js", "spawn.js"
     ];
-
-    const frameColor = 0x888888;
 
     Constants.DefaultCards = [
         {
