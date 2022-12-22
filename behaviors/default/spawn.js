@@ -40,17 +40,29 @@ class CoalPawn {
         this.addEventListener("pointerMove", "pointerMove");
         this.addEventListener("pointerDown", "pointerDown");
         this.addEventListener("pointerUp", "pointerUp");
-        this.listen("translationSet", "translated");
-        this.listen("rotationSet", "translated");
+        this.listen("reparent", "reparent");
         this.front_pos = this.actor._cardData.frontPos;//||12;
     }
 
-    translated(_data) {
-        //this.scrollAreaPawn.say("updateDisplay");
+    reparent(parent) {
+        if (parent && !this.parent) {
+            // make our rotation and translation relative to the new parent
+            let {m4_invert, m4_multiply, m4_getTranslation, m4_getRotation} = Microverse;
+            let relativeToParent = m4_multiply(this.global, m4_invert(parent.global));
+            let translation = m4_getTranslation(relativeToParent);
+            let rotation = m4_getRotation(relativeToParent);
+            this.set({parent, translation, rotation});
+        } else if (!parent && this.parent) {
+            // use our global transform as our own translation and rotation
+            let {m4_getTranslation, m4_getRotation} = Microverse;
+            let translation = m4_getTranslation(this.global);
+            let rotation = m4_getRotation(this.global);
+            this.set({parent, translation, rotation});
+        }
     }
 
     pointerMove(evt) {
-        if (!this.downInfo) {return;}
+        if (!this.dragInfo) {return;}
 
         // do a raycast to find objects behind this one
         let render = this.service("ThreeRenderManager");
@@ -75,16 +87,18 @@ class CoalPawn {
             this.set({translation, rotation});
 
             // remember distance
-            this.downInfo.distance = hit.distance;
+            this.dragInfo.distance = hit.distance;
 
-            // let other = renderObject(hit.object).wcPawn;
-            // console.log("hit", other.actor.name, "at", translation, "normal", normal);
+            // we reparent on pointerUp
+            let other = renderObject(hit.object).wcPawn;
+            this.dragInfo.parent = other.actor;
+
             return;
         }
 
         // no hit, so move along at distance along ray
         let {THREE} = Microverse;
-        let translation = avatar.raycaster.ray.at(this.downInfo.distance, new THREE.Vector3()).toArray();
+        let translation = avatar.raycaster.ray.at(this.dragInfo.distance, new THREE.Vector3()).toArray();
         this.set({translation});
     }
 
@@ -92,10 +106,12 @@ class CoalPawn {
         if (!evt.xyz) {return;}
         let avatar = this.getMyAvatar();
 
-        this.downInfo = {translation: this.translation, downPosition: evt.xyz, distance: evt.distance};
+        this.dragInfo = {distance: evt.distance, parent: this.actor.parent};
         if (avatar) {
             avatar.addFirstResponder("pointerMove", {}, this);
         }
+        // remove from parent (if any)
+        this.say("reparent", null);
     }
 
     pointerUp(_evt) {
@@ -103,7 +119,13 @@ class CoalPawn {
         if (avatar) {
             avatar.removeFirstResponder("pointerMove", {}, this);
         }
-        this.downInfo = null;
+
+        // attach to the object I was dragged on
+        if (this.dragInfo.parent) {
+            this.say("reparent", this.dragInfo.parent);
+        }
+
+        this.dragInfo = null;
     }
 }
 
