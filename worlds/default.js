@@ -444,5 +444,29 @@ export function init(Constants) {
                 spawnRaduis: .2, 
                 }
         },
+        {
+            card: {
+                name: "spawner",
+                type: "3d",
+                dataLocation: "./assets/3D/crate.zip",
+                translation: [8, 3, 12],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Spawn", "SimpleSpin"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.8, .8, .8],
+                frontPos: 12,
+                spawnDataLocation:"./assets/3D/coal.zip",
+                spawnTranslation:[8,4,12],
+                spawnScale:[.01, .01, .01],
+                spawnRotation:[0, 0, 0],
+                spawnDataRotation:[0, 0, 0],
+                spawnDataTranslation:[0, 0, 0],
+                spawnBehaviors: ["Coal"],  
+                spawnType: "3d",
+                spawnRaduis: .2, 
+                }
+        },
     ];
 }

@@ -6,10 +6,11 @@
 
 class SpinningActor {
     setup() {
-        this.spinning = false; // start without spinning
+        this.spinning = true; // start without spinning
         this.angle = 0; // the initial angle
         this.spinSpeed = 0.01; // how fast will we spin (in radians)
-        this.addEventListener("pointerDown", "toggle");
+        //this.addEventListener("pointerDown", "toggle");
+        if (this.spinning) this.step();
     }
 
     step() {
