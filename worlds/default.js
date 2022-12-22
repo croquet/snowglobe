@@ -326,6 +326,31 @@ export function init(Constants) {
             card: {
                 name: "spawner",
                 type: "3d",
+                dataLocation: "./assets/3D/crate.zip",
+                translation: [12, 3, 10],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Spawn"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.5, .5, .5],
+                frontPos: 12,
+                spawnDataLocation:"./assets/3D/top_hat.zip",
+                spawnTranslation:[12,4,10],
+                spawnScale:[.2, .2, .2],
+                spawnRotation:[0, 0, 0],
+                spawnDataRotation:[0, 0, 0],
+                spawnDataTranslation:[0, 0, 0],
+                spawnBehaviors: ["Snowball"],
+                spawnType: "object",
+                spawnRadius: .4,
+
+            }
+        },
+        {
+            card: {
+                name: "spawner",
+                type: "3d",
                 dataLocation: "./assets/3D/coat_rack.zip",
                 translation: [1, 6, 2],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
@@ -341,6 +366,9 @@ export function init(Constants) {
                 spawnRotation:[0, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
+                spawnBehaviors: ["Coal"],
+                spawnType: "3d",
+                spawnRaduis: .2,
 
             }
         },
@@ -351,7 +379,7 @@ export function init(Constants) {
                 dataLocation: "./assets/3D/crate.zip",
                 translation: [1, 3, 15],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Spawn"],
+                behaviorModules: ["Spawn", "SimpleSpin"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -363,7 +391,9 @@ export function init(Constants) {
                 spawnRotation:[Math.PI/2, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
-                //singleSided:false,    
+                spawnBehaviors: ["Coal"],  
+                spawnType: "3d",
+                spawnRaduis: .2, 
                 }
         },
         {
@@ -385,7 +415,34 @@ export function init(Constants) {
                 spawnScale:[.02, .02, .02],
                 spawnDataRotation:[0, 0, 1.57],
                 spawnDataTranslation:[0, 1.2, 0],
+                spawnBehaviors: ["Coal"],
+                spawnType: "3d",
+                spawnRaduis: .2,
             }
+        },
+        {
+            card: {
+                name: "spawner",
+                type: "3d",
+                dataLocation: "./assets/3D/crate.zip",
+                translation: [4, 3, 12],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Spawn", "SimpleSpin"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.8, .8, .8],
+                frontPos: 12,
+                spawnDataLocation:"./assets/3D/white_ball.zip",
+                spawnTranslation:[4,4,12],
+                spawnScale:[.5, .5, .5],
+                spawnRotation:[0, 0, 0],
+                spawnDataRotation:[0, 0, 0],
+                spawnDataTranslation:[0, 0, 0],
+                spawnBehaviors: ["Coal"],  
+                spawnType: "3d",
+                spawnRaduis: .2, 
+                }
         },
     ];
 }

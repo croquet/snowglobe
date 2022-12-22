@@ -118,10 +118,11 @@ class DustPawn {
 
 }
 
+/*
 class SnowStormActor {
- /*
+ ///*
 
- */
+ ///
 
 }
 
@@ -130,17 +131,18 @@ class SnowStormPawn {
         this.subscribe("storm", "snowStorm","startStorm");
     }
     startStorm(){
-        /*
+        ///*
         when time to dreate flakes:
         create snow flakes
         turn the screne white.
         re-build the world
-        */
+        ///
     }
 
     
 }
-
+*/
+/*
 class SnowStormMenuPawn {
     setup() {
         let menu = document.body.querySelector("#worldMenu");
@@ -170,7 +172,7 @@ class SnowStormMenuPawn {
     }
     
 }
-
+*/
 
 
 export default {

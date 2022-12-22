@@ -6,6 +6,9 @@ class SpawnActor{
         this.rot = this._cardData.spawnRotation;
         this.dataTrans= this._cardData.spawnDataTranslation;//||[0,0,0];
         this.dataRot = this._cardData.spawnDataRotation;//||[0,0,0];
+        this.behavior = this._cardData.spawnBehaviors;
+        this.type = this._cardData.spawnType;
+        this.radius = this._cardData.spawnRadius;
         this.listen("spawn","spawn")
         this.frontPos = this._cardData.frontPos;
         this.addEventListener("pointerDown", "spawn");
@@ -15,21 +18,19 @@ class SpawnActor{
         console.log(this.trans);
         this.createCard({
             name: "spawned_object",
-            type: "3d",
+            type: this.type,
             dataLocation: this.dataloc,
             dataTranslation:this.dataTrans,
             dataRotation:this.dataRot,
             translation: this.trans,
             rotation: this.rot,
-            behaviorModules: ["Coal"],
+            behaviorModules: this.behavior,
             layers: ["pointer"],
             cornerRadius: 0.02,
             dataScale: this.spawnScale,
             fullBright: false,
             shadow: true,
-            
-            
-            frontPos:12,
+            radius:this.radius,
         });
     }
 }
@@ -136,6 +137,23 @@ class CoalPawn {
 
 class SpawnPawn{
 
+}
+
+
+class CreateActor {
+    setup(){
+
+    }
+
+    createDefaults(){
+
+    }
+    createNew(){
+
+    }
+    restart(){
+
+    }
 }
 
 export default {
