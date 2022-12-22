@@ -77,12 +77,20 @@ class CoalPawn {
         avatar.setRayCast(evt.xy);
         let hits = avatar.raycaster.intersectObjects(objects);
 
-        // find the first hit that is not this object
+        // hits are sorted by distance, so we find the first hit that is not us or our child
         let renderObject = (obj) => {
             while (obj && !obj.wcPawn) obj = obj.parent;
             return obj;
         }
-        let hit = hits.find(h => renderObject(h.object) !== this.renderObject);
+        let isMeOrMyChild = (obj) => {
+            let actor = renderObject(obj)?.wcPawn.actor;
+            while (actor) {
+                if (actor === this.actor) {return true;}
+                actor = actor.parent;
+            }
+            return false;
+        }
+        let hit = hits.find(h => !isMeOrMyChild(h.object));
 
         // if we hit something, move to the hit point, and rotate according to the hit normal
         let normal = hit?.face?.normal?.toArray();
