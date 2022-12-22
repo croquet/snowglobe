@@ -118,6 +118,14 @@ class DustPawn {
 
 }
 
+class SnowStormActor {
+
+}
+
+class SnowStormPawn {
+    
+}
+
 
 
 export default {
