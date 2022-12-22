@@ -9,7 +9,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "demo.js" ,"carrot.js","lights.js", "bouncingBall.js", "tutorial.js", "snowball.js", "openPortal.js", "urlLink.js", "spawn.js" //"cradle.js", // "pendulum.js"
+        "demo.js" ,"carrot.js","lights.js","simpleSpin.js", "bouncingBall.js", "tutorial.js", "snowball.js", "openPortal.js", "urlLink.js", "spawn.js" //"cradle.js", // "pendulum.js"
     ];
 
     const frameColor = 0x888888;
@@ -374,7 +374,7 @@ export function init(Constants) {
                 dataLocation: "./assets/3D/crate2.zip",
                 translation: [1, 3, -18],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Spawn"],
+                behaviorModules: ["Spawn", "SimpleSpin"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
