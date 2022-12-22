@@ -35,6 +35,18 @@ class SpawnActor{
     }
 }
 
+class TinySnowBallPawn {
+    setup() {
+        this.radius = this.actor._cardData.radius;
+        let geometry = new Microverse.THREE.SphereGeometry(this.radius,32,32);
+        let material =  new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xFFFFFF});
+        let snowball = new Microverse.THREE.Mesh(geometry, material);
+        snowball.position.set(0,0,0);
+        this.shape.add(snowball);
+        
+    }
+}
+
 
 class CoalPawn {
     setup() {
@@ -174,6 +186,10 @@ export default {
         {
             name: "Coal",
             pawnBehaviors: [CoalPawn],
+        },
+        {
+            name: "SmallBall",
+            pawnBehaviors: [TinySnowBallPawn],
         },
     ]
 }
