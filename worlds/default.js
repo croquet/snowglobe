@@ -368,7 +368,7 @@ export function init(Constants) {
                 spawnDataTranslation:[0, 0, 0],
                 spawnBehaviors: ["Coal"],
                 spawnType: "3d",
-                spawnRaduis: .2,
+                spawnRadius: .2,
 
             }
         },
@@ -393,7 +393,7 @@ export function init(Constants) {
                 spawnDataTranslation:[0, 0, 0],
                 spawnBehaviors: ["Coal"],
                 spawnType: "3d",
-                spawnRaduis: .2,
+                spawnRadius: .2,
                 }
         },
         {
@@ -417,7 +417,7 @@ export function init(Constants) {
                 spawnDataTranslation:[0, 1.2, 0],
                 spawnBehaviors: ["Coal"],
                 spawnType: "3d",
-                spawnRaduis: .2,
+                spawnRadius: .2,
             }
         },
         {
@@ -441,7 +441,7 @@ export function init(Constants) {
                 spawnDataTranslation:[0, 0, 0],
                 spawnBehaviors: ["Coal"],
                 spawnType: "3d",
-                spawnRaduis: .2,
+                spawnRadius: .2,
                 }
         },
         {
@@ -465,7 +465,7 @@ export function init(Constants) {
                 spawnDataTranslation:[0, 0, 0],
                 spawnBehaviors: ["Coal"],
                 spawnType: "3d",
-                spawnRaduis: .2,
+                spawnRadius: .2,
                 }
         },
     ];
