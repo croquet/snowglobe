@@ -1,35 +1,27 @@
 class SpawnActor{
     setup(){
-        this.dataloc = this._cardData.spawnDataLocation;
-        this.trans = this._cardData.spawnTranslation;
-        this.spawnScale = this._cardData.spawnScale;
-        this.rot = this._cardData.spawnRotation;
-        this.dataTrans= this._cardData.spawnDataTranslation;//||[0,0,0];
-        this.dataRot = this._cardData.spawnDataRotation;//||[0,0,0];
-        this.behavior = this._cardData.spawnBehaviors;
-        this.type = this._cardData.spawnType;
-        this.radius = this._cardData.spawnRadius;
-        //this.listen("spawn","spawn")
-        this.frontPos = this._cardData.frontPos;
         this.addEventListener("pointerDown", "spawn");
     }
     spawn(){
-        console.log(this.trans);
+        let x = Math.random() * 2 - 1;
+        let y = Math.random() * 2 + 1;
+        let z = Math.random() * 2 - 1;
+        let translation = Microverse.v3_add(this.translation, [x, y, z]);
         this.publish("spawn", "spawn", {
             name: "spawned_object",
-            type: this.type,
-            dataLocation: this.dataloc,
-            dataTranslation:this.dataTrans,
-            dataRotation:this.dataRot,
-            translation: this.trans,
-            rotation: this.rot,
-            behaviorModules: this.behavior,
+            type: this._cardData.spawnType,
+            dataLocation: this._cardData.spawnDataLocation,
+            dataTranslation: this._cardData.spawnDataTranslation,
+            dataRotation: this._cardData.spawnDataRotation,
+            translation,
+            rotation: this._cardData.spawnRotation,
+            dataScale: this._cardData.spawnScale,
+            behaviorModules: this._cardData.spawnBehaviors,
             layers: ["pointer"],
             cornerRadius: 0.02,
-            dataScale: this.spawnScale,
             fullBright: false,
             shadow: true,
-            radius:this.radius,
+            radius: this._cardData.spawnRadius,
         });
     }
 }
