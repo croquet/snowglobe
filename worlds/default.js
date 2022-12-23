@@ -413,7 +413,7 @@ export function init(Constants) {
                 spawnDataLocation:"./assets/3D/carrot.zip",
                 spawnTranslation:[1,1,-18],
                 spawnRotation:[0, 0, 0],
-                spawnScale:[.02, .02, .02],
+                spawnScale:[.01, .01, .01],
                 spawnDataRotation:[0, 0, 1.57],
                 spawnDataTranslation:[0, 1.2, 0],
                 spawnBehaviors: ["Coal"],
