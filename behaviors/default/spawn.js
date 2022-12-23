@@ -52,7 +52,7 @@ class TinySnowBallPawn {
 }
 
 
-class CoalPawn {
+class StickyItemPawn {
     setup() {
         //let geometry = new Microverse.THREE.SphereGeometry(1,32,32);
         //let material =  new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xFFFFFF});
@@ -224,7 +224,7 @@ class CreateActor {
                 dataRotation: [0, 0, 1.57],
                 translation: [14, 0.05, 3],
                 rotation: [Math.PI/2, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -239,7 +239,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [13.5, 0, 3],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -254,7 +254,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [10, 0, 2],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -269,7 +269,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [10, 0, 5],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -284,7 +284,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [13, 0, 2],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -299,7 +299,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [12, 0, 7],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -315,7 +315,7 @@ class CreateActor {
                 dataTranslation: [0,0,0],
                 translation: [10, 0, 2],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -331,7 +331,7 @@ class CreateActor {
                 dataTranslation: [0, 0.2, 0],
                 translation: [10, 0, 4],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -346,7 +346,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/stick.zip",
                 translation: [10, 0, 3],
                 rotation: [Math.PI/2, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -360,7 +360,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/stick.zip",
                 translation: [10, 0, -2],
                 rotation: [Math.PI/2, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -375,7 +375,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/stick2.zip",
                 translation: [10, 0, 2],
                 rotation: [-Math.PI/2, 0, 0],
-                behaviorModules: ["Coal"],
+                behaviorModules: ["StickyItem"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -418,8 +418,8 @@ export default {
             pawnBehaviors: [SpawnPawn]
         },
         {
-            name: "Coal",
-            pawnBehaviors: [CoalPawn],
+            name: "StickyItem",
+            pawnBehaviors: [StickyItemPawn],
         },
         {
             name: "SmallBall",
