@@ -9,7 +9,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "carrot.js","lights.js", "tutorial.js", "snowball.js", "urlLink.js", "spawn.js","simpleSpin.js"
+        "carrot.js","lights.js", "tutorial.js", "snowball.js", "urlLink.js", "spawn.js","spinAndBob.js"
     ];
 
     Constants.DefaultCards = [
@@ -330,7 +330,7 @@ export function init(Constants) {
                 dataLocation: "./assets/3D/crate.zip",
                 translation: [12, 0, 10],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Spawn", "SimpleSpin"],
+                behaviorModules: ["Spawn", "SpinAndBob"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -355,7 +355,7 @@ export function init(Constants) {
                 dataLocation: "./assets/3D/coat_rack.zip",
                 translation: [1, 3, -5],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Spawn", "SimpleSpin"],
+                behaviorModules: ["Spawn", "SpinAndBob"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -380,7 +380,7 @@ export function init(Constants) {
                 dataLocation: "./assets/3D/crate.zip",
                 translation: [1, 0, 15],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Spawn", "SimpleSpin"],
+                behaviorModules: ["Spawn", "SpinAndBob"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -404,7 +404,7 @@ export function init(Constants) {
                 dataLocation: "./assets/3D/crate2.zip",
                 translation: [1, 0, -18],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Spawn", "SimpleSpin"],
+                behaviorModules: ["Spawn", "SpinAndBob"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -428,7 +428,7 @@ export function init(Constants) {
                 dataLocation: "./assets/3D/crate.zip",
                 translation: [8, 0, 12],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Spawn", "SimpleSpin"],
+                behaviorModules: ["Spawn", "SpinAndBob"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -452,7 +452,7 @@ export function init(Constants) {
                 dataLocation: "./assets/3D/crate.zip",
                 translation: [4, 0, 12],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["Spawn"],
+                behaviorModules: ["Spawn", "SpinAndBob"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
