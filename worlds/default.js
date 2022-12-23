@@ -415,7 +415,7 @@ export function init(Constants) {
                 spawnRotation:[0, 0, 0],
                 spawnScale:[.01, .01, .01],
                 spawnDataRotation:[0, 0, 1.57],
-                spawnDataTranslation:[0, 1.2, 0],
+                spawnDataTranslation:[0, 0.6, 0],
                 spawnBehaviors: ["Coal"],
                 spawnType: "3d",
                 spawnRadius: .2,
