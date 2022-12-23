@@ -1,19 +1,39 @@
 class LightPawn {
     setup() {
         console.log("LightPawn");
-        let trm = this.service("ThreeRenderManager");
-        let scene =  trm.scene;
-        let camera = trm.camera;
+        /*
+          let trm = this.service("ThreeRenderManager");
+          let scene =  trm.scene;
+          let camera = trm.camera;
+        */
         let group = this.shape;
+        let THREE = Microverse.THREE;
 
         this.removeLights();
         this.lights = [];
 
-        this.setupCSM(scene, camera, Microverse.THREE);
-
-        const ambient = new Microverse.THREE.AmbientLight( 0xffffff, .5 );
+        const ambient = new THREE.AmbientLight( 0xffffff, .9 );
         group.add(ambient);
         this.lights.push(ambient);
+
+        const sun = new THREE.DirectionalLight( 0xffffff, 0.9 );
+        sun.position.set(10, 25, 0);
+        sun.castShadow = true;
+        sun.shadow.blurSamples = 2;
+        sun.shadow.camera.left = 10;
+        sun.shadow.camera.right = -10;
+        sun.shadow.camera.top = 10;
+        sun.shadow.camera.bottom = -10;
+        // sun.shadow.mapSize.width = 2048;
+        // sun.shadow.mapSize.height = 2048;
+        group.add(sun);
+        this.lights.push(sun);
+
+        const sunTarget = new THREE.Object3D();
+        sunTarget.position.set(10, 0, 0);
+        group.add(sunTarget);
+        this.lights.push(sunTarget);
+        sun.target = sunTarget;
 
         this.constructBackground(this.actor._cardData);
 
@@ -26,7 +46,9 @@ class LightPawn {
     removeLights() {
         if (this.lights) {
             [...this.lights].forEach((light) => {
-                light.dispose();
+                if (light.dispose) {
+                    light.dispose();
+                }
                 this.shape.remove(light);
             });
         }
@@ -79,33 +101,13 @@ class LightPawn {
                 if(e !== bg) if(bg) bg.dispose();
                 if(e) e.dispose();
                 texture.dispose();
+            }).then(() => {
+                if (this.actor._cardData.loadSynchronously) {
+                    this.publish(
+                        this.sessionId, "synchronousCardLoaded", {id: this.actor.id});
+                }
             });
         });
-    }
-
-    setupCSM(scene, camera, THREE) {
-        if (this.csm) {
-            this.csm.remove();
-            this.csm.dispose();
-            this.csm = null;
-        }
-
-        let dir = new THREE.Vector3(-2,-2,-0.5);
-        this.csm = new THREE.CSM({
-            fade: true,
-            far: camera.far,
-            maxFar: 1000,
-            cascades: 3,
-            shadowMapSize: 2048,
-            shadowbias: 0.00025,
-            lightDirection: dir,
-            camera: camera,
-            parent: scene,
-            lightIntensity: 0.6,
-            lightFar: 1000,
-            mode: "practical"
-        });
-        this.csm.update();
     }
 
     update(_time) {
