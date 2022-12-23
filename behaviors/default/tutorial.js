@@ -118,7 +118,7 @@ class DustPawn {
 
 }
 
-/*
+
 class SnowStormActor {
  ///*
 
@@ -131,25 +131,27 @@ class SnowStormPawn {
         this.subscribe("storm", "snowStorm","startStorm");
     }
     startStorm(){
-        ///*
+        /*
         when time to dreate flakes:
         create snow flakes
         turn the screne white.
-        re-build the world
-        ///
+        //*/
+
+        // rebuild world
+        this.publish("storm", "reset");
     }
 
     
 }
-*/
-/*
+
+
 class SnowStormMenuPawn {
     setup() {
         let menu = document.body.querySelector("#worldMenu");
         if (menu) {
             let menuItemDiv = document.createElement("div");
             menuItemDiv.innerHTML = `<div id="worldMenu-snow" class="menu-label menu-item">
-    <span class="menu-label-text">Turn off Sound</span>
+    <span class="menu-label-text">Blizzard</span>
     <div class="menu-icon load-icon"></div>
 </div>`;
             let menuItem = menuItemDiv.firstChild;
@@ -172,7 +174,7 @@ class SnowStormMenuPawn {
     }
     
 }
-*/
+
 
 
 export default {
@@ -181,6 +183,16 @@ export default {
             name: "TutorialGif",
             actorBehaviors: [DustActor],
             pawnBehaviors: [DustPawn],
+        },
+        {
+            name: "SnowMenu",
+            actorBehaviors: [],
+            pawnBehaviors: [SnowStormMenuPawn],
+        },
+        {
+            name: "Storm",
+            actorBehaviors: [],
+            pawnBehaviors: [SnowStormPawn],
         },
 
 

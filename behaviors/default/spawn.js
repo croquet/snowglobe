@@ -9,14 +9,14 @@ class SpawnActor{
         this.behavior = this._cardData.spawnBehaviors;
         this.type = this._cardData.spawnType;
         this.radius = this._cardData.spawnRadius;
-        this.listen("spawn","spawn")
+        //this.listen("spawn","spawn")
         this.frontPos = this._cardData.frontPos;
         this.addEventListener("pointerDown", "spawn");
         this.children = [];
     }
     spawn(){
         console.log(this.trans);
-        this.createCard({
+        this.publish("spawn", "spawn", {
             name: "spawned_object",
             type: this.type,
             dataLocation: this.dataloc,
@@ -162,17 +162,249 @@ class SpawnPawn{
 
 class CreateActor {
     setup(){
-
+        console.log("Creating Default Cards - 0!");
+        this.cards = [];
+        this.reset();
+        this.subscribe("spawn", "spawn", "createNew")
+        this.subscribe("storm", "reset", "reset");
     }
 
     createDefaults(){
+        //console.log("Creating Default Cards!");
+        let a = this.createCard({
+                name: "snowball_large",
+                type: "object",
+                translation: [12, 0.4, 0],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Snowball"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [1, 1, 1],
+                radius:1,
+                //singleSided:false,
 
+            });
+        let b = this.createCard({
+                name: "snowball_medium",
+                type: "object",
+                translation: [12, 1, -3],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Snowball"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [1, 1, 1],
+                radius:0.8,
+                //singleSided:false,
+
+            });
+        let c= this.createCard({
+                name: "snowball_small",
+                type: "object",
+                translation: [12, 1.5, 3],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Snowball"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.5, .5, .5],
+                radius:0.6,
+                //singleSided:false,
+
+            });
+        let d = this.createCard({
+                name: "carrot",
+                type: "3d",
+                dataLocation: "./assets/3D/carrot.zip",
+                dataTranslation: [0, 1.2, 0],
+                dataRotation: [0, 0, 1.57],
+                translation: [14, 0, 3],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0,0],//Math.PI, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.02, .02, .02],
+                frontPos: 12,
+                //singleSided:false,
+
+            });
+        let e = this.createCard({
+                name: "coal_1",
+                type: "3d",
+                dataLocation: "./assets/3D/coal.zip",
+                translation: [13.5, 0, 3],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.01, .01, .01],
+                frontPos: 11.6,
+                //singleSided:false,
+
+            });
+        let f = this.createCard({
+                name: "coal_2",
+                type: "3d",
+                dataLocation: "./assets/3D/coal.zip",
+                translation: [10, 0, 2],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.01, .01, .01],
+                frontPos: 11.6,
+                //singleSided:false,
+
+            });
+        let g = this.createCard({
+                name: "coal_3",
+                type: "3d",
+                dataLocation: "./assets/3D/coal.zip",
+                translation: [10, 0, 5],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.01, .01, .01],
+                frontPos: 11.6,
+                //singleSided:false,
+
+            });
+        let h = this.createCard({
+                name: "coal_4",
+                type: "3d",
+                dataLocation: "./assets/3D/coal.zip",
+                translation: [13, 0, 2],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.01, .01, .01],
+                frontPos: 11.6,
+                //singleSided:false,
+
+            });
+        let i = this.createCard({
+                name: "coal_5",
+                type: "3d",
+                dataLocation: "./assets/3D/coal.zip",
+                translation: [12, 0, 7],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.01, .01, .01],
+                frontPos: 11.6,
+                //singleSided:false,
+
+            });
+        let j = this.createCard({
+                name: "hat_1",
+                type: "3d",
+                dataLocation: "./assets/3D/top_hat.zip",
+                dataTranslation: [0,0,0],
+                translation: [10, 0, 2],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.2, .2, .2],
+                frontPos: 12,
+                //singleSided:false,
+
+            });
+        let k = this.createCard({
+                name: "hat_2",
+                type: "3d",
+                dataLocation: "./assets/3D/top_hat2.zip",
+                dataTranslation: [0, 0.2, 0],
+                translation: [10, 0, 4],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [0, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.002, .002, .002],
+                frontPos: 12,
+                //singleSided:false,
+
+            });
+        let l = this.createCard({
+                name: "stick",
+                type: "3d",
+                dataLocation: "./assets/3D/stick.zip",
+                translation: [10, 0, 3],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [Math.PI/2, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.05, .05, .05],
+                frontPos: 12,
+                //singleSided:false,
+
+            });
+        let m = this.createCard({
+                name: "stick",
+                type: "3d",
+                dataLocation: "./assets/3D/stick.zip",
+                translation: [10, 0, -2],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [Math.PI/2, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.05, .05, .05],
+                frontPos: 12,
+                //singleSided:false,
+
+            });
+        let n = this.createCard({
+                name: "stick",
+                type: "3d",
+                dataLocation: "./assets/3D/stick2.zip",
+                translation: [10, 0, 2],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
+                rotation: [-Math.PI/2, 0, 0],
+                behaviorModules: ["Coal"],
+                shadow: true,
+                myScope: "left",
+                level: 1,
+                dataScale: [.05, .05, .05],
+                frontPos: 12,
+                //singleSided:false,
+            });
+        this.cards.push(a);
+        this.cards.push(b);
+        this.cards.push(c);
+        this.cards.push(d);
+        this.cards.push(e);
+        this.cards.push(f);
+        this.cards.push(g);
+        this.cards.push(h);
+        this.cards.push(i);
+        this.cards.push(j);
+        this.cards.push(k);
+        this.cards.push(l);
+        this.cards.push(m);
+        this.cards.push(n);
     }
-    createNew(){
-
+    createNew(data){
+        let spawn = this.createCard(data);
+        this.cards.push(spawn);
     }
-    restart(){
 
+    reset(){
+        console.log("Creating Default Cards! - 1");
+        this.cards.forEach((c) => c.destroy());
+        this.createDefaults();
     }
 }
 
@@ -191,5 +423,11 @@ export default {
             name: "SmallBall",
             pawnBehaviors: [TinySnowBallPawn],
         },
+        {
+            name: "Create",
+            actorBehaviors: [CreateActor],
+            pawnBehaviors: []
+        },
+        
     ]
 }
