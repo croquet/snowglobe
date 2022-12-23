@@ -12,7 +12,6 @@ class SpawnActor{
         //this.listen("spawn","spawn")
         this.frontPos = this._cardData.frontPos;
         this.addEventListener("pointerDown", "spawn");
-        this.children = [];
     }
     spawn(){
         console.log(this.trans);
@@ -43,7 +42,7 @@ class TinySnowBallPawn {
         let snowball = new Microverse.THREE.Mesh(geometry, material);
         snowball.position.set(0,0,0);
         this.shape.add(snowball);
-        
+
     }
 }
 
@@ -428,6 +427,6 @@ export default {
             actorBehaviors: [CreateActor],
             pawnBehaviors: []
         },
-        
+
     ]
 }
