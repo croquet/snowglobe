@@ -1,7 +1,9 @@
 class SpawnActor{
     setup(){
         this.addEventListener("pointerDown", "spawn");
+        this.spawn(); // spawn one on startup
     }
+
     spawn(){
         let x = Math.random() * 2 - 1;
         let y = Math.random() * 2 + 1;
