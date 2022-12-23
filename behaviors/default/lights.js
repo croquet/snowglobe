@@ -17,13 +17,14 @@ class LightPawn {
         this.lights.push(ambient);
 
         const sun = new THREE.DirectionalLight( 0xffffff, 0.9 );
-        sun.position.set(10, 25, 0);
+        sun.position.set(23, 10, 10);
         sun.castShadow = true;
         sun.shadow.blurSamples = 2;
-        sun.shadow.camera.left = 10;
-        sun.shadow.camera.right = -10;
-        sun.shadow.camera.top = 10;
-        sun.shadow.camera.bottom = -10;
+        sun.shadow.camera.left = 20;
+        sun.shadow.camera.right = -25;
+        sun.shadow.camera.top = 23;
+        sun.shadow.camera.bottom = -7;
+        sun.shadow.normalBias = 0.1;
         // sun.shadow.mapSize.width = 2048;
         // sun.shadow.mapSize.height = 2048;
         group.add(sun);

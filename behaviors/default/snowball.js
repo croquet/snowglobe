@@ -58,7 +58,7 @@ class TextActor {
         this.avatars = actors.filter((a) => a.playerId);
         this.future(500).step();
     }
-    
+
 }
 
 class TextPawn {
@@ -76,7 +76,7 @@ class TextPawn {
         this.currDot = 0;
         this.green = 0x40FF00;
         this.red = 0xFF7300;
-        this.upTranslation = this.actor._translation; 
+        this.upTranslation = this.actor._translation;
         this.listen("step","step");
     }
 
@@ -148,13 +148,15 @@ class SnowBallPawn {
         let material =  new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xFFFFFF});
         let snowball = new Microverse.THREE.Mesh(geometry, material);
         snowball.position.set(0,0,0);
+        snowball.castShadow = true;
+        snowball.receiveShadow = true;
         this.shape.add(snowball);
         this.addEventListener("pointerMove", "pointerMove");
         this.addEventListener("pointerDown", "pointerDown");
         this.addEventListener("pointerUp", "pointerUp");
         this.listen("translationSet", "translated");
         this.listen("rotationSet", "translated");
-        
+
     }
 
     translated(_data) {
