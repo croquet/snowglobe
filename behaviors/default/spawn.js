@@ -129,6 +129,8 @@ class CoalPawn {
 
     pointerDown(evt) {
         if (!evt.xyz) {return;}
+        if (this.dragInfo) {return;}
+
         let avatar = this.getMyAvatar();
 
         this.dragInfo = {distance: evt.distance, parent: this.actor.parent};
@@ -140,6 +142,8 @@ class CoalPawn {
     }
 
     pointerUp(_evt) {
+        if (!this.dragInfo) {return;}
+
         let avatar = this.getMyAvatar();
         if (avatar) {
             avatar.removeFirstResponder("pointerMove", {}, this);
