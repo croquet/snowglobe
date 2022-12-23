@@ -26,6 +26,15 @@ class SpawnActor{
     }
 }
 
+
+class SpawnPawn{
+    setup() {
+        // prevent jumping to crate
+        this.removeEventListener("pointerDoubleDown", "onPointerDoubleDown");
+        this.addEventListener("pointerDoubleDown", "nop");
+    }
+}
+
 class TinySnowBallPawn {
     setup() {
         this.radius = this.actor._cardData.radius;
@@ -149,11 +158,6 @@ class CoalPawn {
         this.dragInfo = null;
     }
 }
-
-class SpawnPawn{
-
-}
-
 
 class CreateActor {
     setup(){
