@@ -51,6 +51,42 @@ class TinySnowBallPawn {
     }
 }
 
+class StickyItemActor {
+    setup() {
+        this.listen("unstick", "unstick");
+        this.listen("stickTo", "stickTo");
+    }
+
+    // remove from current parent into world-space
+    unstick() {
+        if (!this.parent) {return;}
+        // use our global transform as our own translation and rotation
+        let {m4_getTranslation, m4_getRotation} = Microverse;
+        let translation = m4_getTranslation(this.global);
+        let rotation = m4_getRotation(this.global);
+        this.set({parent: null, translation, rotation});
+    }
+
+    // stick to a parent preserving our world-space translation and rotation
+    stickTo(parent) {
+        if (!parent || this.parent|| this.isMeOrMyChild(parent)) {return;}
+        // make our rotation and translation relative to the new parent
+        let {m4_invert, m4_multiply, m4_getTranslation, m4_getRotation} = Microverse;
+        let relativeToParent = m4_multiply(this.global, m4_invert(parent.global));
+        let translation = m4_getTranslation(relativeToParent);
+        let rotation = m4_getRotation(relativeToParent);
+        this.set({parent, translation, rotation});
+    }
+
+    isMeOrMyChild(actor) {
+        while (actor) {
+            // compare IDs because actor may be a behavior proxy
+            if (actor.id === this.id) {return true;}
+            actor = actor.parent;
+        }
+        return false;
+    }
+}
 
 class StickyItemPawn {
     setup() {
@@ -62,25 +98,7 @@ class StickyItemPawn {
         this.addEventListener("pointerMove", "pointerMove");
         this.addEventListener("pointerDown", "pointerDown");
         this.addEventListener("pointerUp", "pointerUp");
-        this.listen("reparent", "reparent");
         this.front_pos = this.actor._cardData.frontPos;//||12;
-    }
-
-    reparent(parent) {
-        if (parent && !this.parent) {
-            // make our rotation and translation relative to the new parent
-            let {m4_invert, m4_multiply, m4_getTranslation, m4_getRotation} = Microverse;
-            let relativeToParent = m4_multiply(this.global, m4_invert(parent.global));
-            let translation = m4_getTranslation(relativeToParent);
-            let rotation = m4_getRotation(relativeToParent);
-            this.set({parent, translation, rotation});
-        } else if (!parent && this.parent) {
-            // use our global transform as our own translation and rotation
-            let {m4_getTranslation, m4_getRotation} = Microverse;
-            let translation = m4_getTranslation(this.global);
-            let rotation = m4_getRotation(this.global);
-            this.set({parent, translation, rotation});
-        }
     }
 
     pointerMove(evt) {
@@ -100,11 +118,8 @@ class StickyItemPawn {
         }
         let isMeOrMyChild = (obj) => {
             let actor = renderObject(obj)?.wcPawn.actor;
-            while (actor) {
-                if (actor === this.actor) {return true;}
-                actor = actor.parent;
-            }
-            return false;
+            console.log("testing", actor?.name);
+            return this.actorCall("StickyItemActor", "isMeOrMyChild", actor);
         }
         let hit = hits.find(h => !isMeOrMyChild(h.object));
 
@@ -143,7 +158,7 @@ class StickyItemPawn {
             avatar.addFirstResponder("pointerMove", {}, this);
         }
         // remove from parent (if any)
-        this.say("reparent", null);
+        this.say("unstick");
     }
 
     pointerUp(_evt) {
@@ -156,7 +171,7 @@ class StickyItemPawn {
 
         // attach to the object I was dragged on
         if (this.dragInfo.parent) {
-            this.say("reparent", this.dragInfo.parent);
+            this.say("stickTo", this.dragInfo.parent);
         }
 
         this.dragInfo = null;
@@ -419,6 +434,7 @@ export default {
         },
         {
             name: "StickyItem",
+            actorBehaviors: [StickyItemActor],
             pawnBehaviors: [StickyItemPawn],
         },
         {
