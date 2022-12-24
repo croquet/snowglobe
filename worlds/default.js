@@ -368,7 +368,7 @@ export function init(Constants) {
                 spawnRotation:[0, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
-                spawnBehaviors: ["StickyItem"],
+                spawnBehaviors: ["StickyItem", "SingleUser"],
                 spawnType: "3d",
                 spawnRadius: .2,
 
@@ -393,7 +393,7 @@ export function init(Constants) {
                 spawnRotation:[Math.PI/2, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
-                spawnBehaviors: ["StickyItem"],
+                spawnBehaviors: ["StickyItem", "SingleUser"],
                 spawnType: "3d",
                 spawnRadius: .2,
                 }
@@ -417,7 +417,7 @@ export function init(Constants) {
                 spawnScale:[.01, .01, .01],
                 spawnDataRotation:[0, 0, 1.57],
                 spawnDataTranslation:[0, 0.6, 0],
-                spawnBehaviors: ["StickyItem"],
+                spawnBehaviors: ["StickyItem", "SingleUser"],
                 spawnType: "3d",
                 spawnRadius: .2,
             }
@@ -441,7 +441,7 @@ export function init(Constants) {
                 spawnRotation:[0, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
-                spawnBehaviors: ["StickyItem"],
+                spawnBehaviors: ["StickyItem", "SingleUser"],
                 spawnType: "3d",
                 spawnRadius: .2,
                 }
@@ -465,7 +465,7 @@ export function init(Constants) {
                 spawnRotation:[0, 0, 0],
                 spawnDataRotation:[0, 0, 0],
                 spawnDataTranslation:[0, 0, 0],
-                spawnBehaviors: ["SmallBall", "StickyItem"],
+                spawnBehaviors: ["SmallBall", "StickyItem", "SingleUser"],
                 spawnType: "object",
                 spawnRadius: .2,
 
