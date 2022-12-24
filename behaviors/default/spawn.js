@@ -53,8 +53,31 @@ class TinySnowBallPawn {
 
 class StickyItemActor {
     setup() {
-        this.listen("unstick", "unstick");
-        this.listen("stickTo", "stickTo");
+        this.listen("dragStart", "dragStart");
+        this.listen("dragEnd", "dragEnd");
+        this.listen("dragMove", "dragMove");
+    }
+
+    dragStart({viewId}) {
+        if (!this.occupier) {// see SingleUser behavior
+            this.say("focus", viewId);
+            this.unstick();
+        }
+    }
+
+    dragMove({viewId, translation, rotation}) {
+        if (viewId === this.occupier) { // see SingleUser behavior
+            if (translation) this.translateTo(translation);
+            if (rotation) this.rotateTo(rotation);
+            this.say("focus", viewId);
+        }
+    }
+
+    dragEnd({viewId, parent}) {
+        if (viewId === this.occupier) { // see SingleUser behavior
+            this.stickTo(parent);
+            this.say("unfocus", viewId);
+        }
     }
 
     // remove from current parent into world-space
@@ -90,19 +113,17 @@ class StickyItemActor {
 
 class StickyItemPawn {
     setup() {
-        //let geometry = new Microverse.THREE.SphereGeometry(1,32,32);
-        //let material =  new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xFFFFFF});
-        //let snowball = new Microverse.THREE.Mesh(geometry, material);
-        //snowball.position.set(0,0,0);
-        //this.shape.add(snowball);
         this.addEventListener("pointerMove", "pointerMove");
         this.addEventListener("pointerDown", "pointerDown");
         this.addEventListener("pointerUp", "pointerUp");
-        this.front_pos = this.actor._cardData.frontPos;//||12;
+    }
+
+    dragging() {
+        return this.actor.occupier === this.viewId; // see SingleUser behavior
     }
 
     pointerMove(evt) {
-        if (!this.dragInfo) {return;}
+        if (!this.dragging()) {return;}
 
         // do a raycast to find objects behind this one
         let render = this.service("ThreeRenderManager");
@@ -118,7 +139,6 @@ class StickyItemPawn {
         }
         let isMeOrMyChild = (obj) => {
             let actor = renderObject(obj)?.wcPawn.actor;
-            console.log("testing", actor?.name);
             return this.actorCall("StickyItemActor", "isMeOrMyChild", actor);
         }
         let hit = hits.find(h => !isMeOrMyChild(h.object));
@@ -129,7 +149,7 @@ class StickyItemPawn {
             let {q_lookAt} = Microverse;
             let rotation = q_lookAt([0, 1, 0], [0, 0, 1], normal);
             let translation = hit.point.toArray();
-            this.set({translation, rotation});
+            this.say("dragMove", {viewId: this.viewId, translation, rotation});
 
             // remember distance
             this.dragInfo.distance = hit.distance;
@@ -144,7 +164,7 @@ class StickyItemPawn {
         // no hit, so move along at distance along ray
         let {THREE} = Microverse;
         let translation = avatar.raycaster.ray.at(this.dragInfo.distance, new THREE.Vector3()).toArray();
-        this.set({translation});
+        this.say("dragMove", {viewId: this.viewId, translation});
     }
 
     pointerDown(evt) {
@@ -158,7 +178,7 @@ class StickyItemPawn {
             avatar.addFirstResponder("pointerMove", {}, this);
         }
         // remove from parent (if any)
-        this.say("unstick");
+        this.say("dragStart", {viewId: this.viewId});
     }
 
     pointerUp(_evt) {
@@ -171,7 +191,7 @@ class StickyItemPawn {
 
         // attach to the object I was dragged on
         if (this.dragInfo.parent) {
-            this.say("stickTo", this.dragInfo.parent);
+            this.say("dragEnd", {viewId: this.viewId, parent: this.dragInfo.parent});
         }
 
         this.dragInfo = null;
@@ -239,7 +259,7 @@ class CreateActor {
                 dataRotation: [0, 0, 1.57],
                 translation: [14, 0.05, 3],
                 rotation: [Math.PI/2, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -254,7 +274,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [13.5, 0, 3],
                 rotation: [0, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -269,7 +289,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [10, 0, 2],
                 rotation: [0, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -284,7 +304,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [10, 0, 5],
                 rotation: [0, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -299,7 +319,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [13, 0, 2],
                 rotation: [0, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -314,7 +334,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/coal.zip",
                 translation: [12, 0, 7],
                 rotation: [0, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -330,7 +350,7 @@ class CreateActor {
                 dataTranslation: [0,0,0],
                 translation: [10, 0, 2],
                 rotation: [0, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -346,7 +366,7 @@ class CreateActor {
                 dataTranslation: [0, 0.2, 0],
                 translation: [10, 0, 4],
                 rotation: [0, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -361,7 +381,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/stick.zip",
                 translation: [10, 0, 3],
                 rotation: [Math.PI/2, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -375,7 +395,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/stick.zip",
                 translation: [10, 0, -2],
                 rotation: [Math.PI/2, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
@@ -390,7 +410,7 @@ class CreateActor {
                 dataLocation: "./assets/3D/stick2.zip",
                 translation: [10, 0, 2],
                 rotation: [-Math.PI/2, 0, 0],
-                behaviorModules: ["StickyItem"],
+                behaviorModules: ["StickyItem", "SingleUser"],
                 shadow: true,
                 myScope: "left",
                 level: 1,
