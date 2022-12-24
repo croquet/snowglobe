@@ -60,7 +60,7 @@ class StickyItemActor {
 
     dragStart({viewId}) {
         if (!this.occupier) {// see SingleUser behavior
-            this.say("focus", viewId);
+            this.say("focus", viewId);  // grab single user focus
             this.unstick();
         }
     }
@@ -69,14 +69,14 @@ class StickyItemActor {
         if (viewId === this.occupier) { // see SingleUser behavior
             if (translation) this.translateTo(translation);
             if (rotation) this.rotateTo(rotation);
-            this.say("focus", viewId);
+            this.say("focus", viewId);  // refresh single user focus
         }
     }
 
     dragEnd({viewId, parent}) {
         if (viewId === this.occupier) { // see SingleUser behavior
             this.stickTo(parent);
-            this.say("unfocus", viewId);
+            this.say("unfocus", viewId); // release single user focus
         }
     }
 
@@ -190,9 +190,7 @@ class StickyItemPawn {
         }
 
         // attach to the object I was dragged on
-        if (this.dragInfo.parent) {
-            this.say("dragEnd", {viewId: this.viewId, parent: this.dragInfo.parent});
-        }
+        this.say("dragEnd", {viewId: this.viewId, parent: this.dragInfo.parent});
 
         this.dragInfo = null;
     }
