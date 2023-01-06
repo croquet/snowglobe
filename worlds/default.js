@@ -9,7 +9,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "carrot.js","lights.js", "tutorial.js", "snowball.js", "urlLink.js", "spawn.js","spinAndBob.js"
+        "carrot.js","lights.js", "snowfall.js", "snowball.js", "urlLink.js", "spawn.js","spinAndBob.js"
     ];
 
     Constants.DefaultCards = [
