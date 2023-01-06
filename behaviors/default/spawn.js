@@ -1,14 +1,22 @@
 class SpawnActor{
+    /*Creates a object capable of spawning other objects. as input, the object needs the data location
+    of both the spawner and the spawnee as well as locaiton, rotatio, ect. data for both.
+    */
     setup(){
         this.addEventListener("pointerDown", "spawn");
         this.spawn(); // spawn one on startup
     }
 
     spawn(){
+        ///Spawn an item using parameters from the spawner
+        
+        //add slight variation in spawn location to prevent overlap of multiple spawned objects
         let x = Math.random() * 2 - 1;
         let y = Math.random() * 2 + 1;
         let z = Math.random() * 2 - 1;
         let translation = Microverse.v3_add(this.translation, [x, y, z]);
+
+        //create spawn
         this.publish("spawn", "spawn", {
             name: "spawned_object",
             type: this._cardData.spawnType,
@@ -38,6 +46,7 @@ class SpawnPawn{
 }
 
 class TinySnowBallPawn {
+    /// creates a ball without any movement behaviors///
     setup() {
         this.radius = this.actor._cardData.radius;
         let geometry = new Microverse.THREE.SphereGeometry(this.radius,32,32);
@@ -52,6 +61,11 @@ class TinySnowBallPawn {
 }
 
 class StickyItemActor {
+    /*
+    movement behavior for accessories. the obect with always be attached to another object and 
+    will always face perpendicular to the surface it is attached to. usful for object that need to be 
+    placed radially outward.
+    */
     setup() {
         this.listen("dragStart", "dragStart");
         this.listen("dragEnd", "dragEnd");
@@ -197,6 +211,10 @@ class StickyItemPawn {
 }
 
 class CreateActor {
+    /*
+    creates the default cards for the snowman. includes various snowballs, sticks coal and hats.
+    useful for allowing the implementation of a reset button
+    */
     setup(){
         console.log("Creating Default Cards - 0!");
         this.cards = [];

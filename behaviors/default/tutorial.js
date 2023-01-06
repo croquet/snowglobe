@@ -133,12 +133,40 @@ class SnowStormPawn {
     startStorm(){
         /*
         when time to dreate flakes:
-        create snow flakes
-        turn the screne white.
-        //*/
-
+        create snow flakes*/
+        //turn the screne white.
+        this.fadeToWhite();
         // rebuild world
         this.publish("storm", "reset");
+        this.future(1000).fadeFromWhite();
+    }
+    fadeToWhite() {
+        let snowCoverDiv = document.createElement("div");
+        snowCoverDiv.id = "croquet_spinnerOverlay";
+        snowCoverDiv.style.position = "fixed";
+        snowCoverDiv.style.width = "100%";
+        snowCoverDiv.style.height = "100%";
+        snowCoverDiv.style.zIndex = 2000;
+        snowCoverDiv.style.backgroundColor = "#FFFFFF";
+        snowCoverDiv.style.opacity = "0";
+        window.snowCoverDiv = snowCoverDiv;
+        document.body.appendChild(snowCoverDiv);
+        window.snowCoverDiv.style.transition = "opacity 2s";
+        window.snowCoverDiv.style.opacity = 0.95;
+        Microverse.sendToShell("hud", {joystick: false, fullscreen: false});
+    }
+    fadeFromWhite(){
+        if (window.snowCoverDiv) {
+            window.snowCoverDiv.style.transition = "opacity 2s";
+            window.snowCoverDiv.style.opacity = 0;
+        }
+        window.setTimeout(() => {
+            if (window.snowCoverDiv) {
+                window.snowCoverDiv.remove();
+                delete window.snowCoverDiv;
+            }
+        }, 1000);
+        Microverse.sendToShell("hud", {joystick: true, fullscreen: true});
     }
 
     

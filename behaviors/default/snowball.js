@@ -142,8 +142,11 @@ class QRCodePawn {
 }
 
 class SnowBallPawn {
+    /*Creates a white ball of size 'radius' using three.js. this ball is draggable in 2 dimentions.
+    movement is restricted on the X dimension*/
     setup() {
-        this.radius = this.actor._cardData.radius;
+        this.radius = this.actor._cardData.radius; //retrive desired radius
+        //create ball
         let geometry = new Microverse.THREE.SphereGeometry(this.radius,32,32);
         let material =  new Microverse.THREE.MeshStandardMaterial({color: this.actor._cardData.color || 0xFFFFFF});
         let snowball = new Microverse.THREE.Mesh(geometry, material);
@@ -151,6 +154,7 @@ class SnowBallPawn {
         snowball.castShadow = true;
         snowball.receiveShadow = true;
         this.shape.add(snowball);
+        //add movement listeners
         this.addEventListener("pointerMove", "pointerMove");
         this.addEventListener("pointerDown", "pointerDown");
         this.addEventListener("pointerUp", "pointerUp");
@@ -164,6 +168,7 @@ class SnowBallPawn {
     }
 
     moveMyself(evt) {
+        //move the snowball itself. 
         if (!evt.ray) {return;}
 
         let {THREE, v3_add, v3_sub} = Microverse;
@@ -183,9 +188,9 @@ class SnowBallPawn {
         let diff = v3_sub(drag, down);
         let newPos = v3_add(this.downInfo.translation, diff);
 
-        let [x,y,z] = newPos;
+        let [x,y,z] = newPos; //find movement vector from mouse position
 
-        this.set({translation: [12,y,z]});
+        this.set({translation: [12,y,z]}); // x value is always 12!
     }
 
     pointerMove(evt) {
@@ -207,7 +212,6 @@ class SnowBallPawn {
         let deltaY = vec.y - origDownPoint.y;
 
         this.downInfo.child.translateTo([origTranslation[0] + deltaX, origTranslation[1] + deltaY, origTranslation[2]]);
-        // console.log(this.downInfo, pVec2);
     }
 
     pointerDown(evt) {
