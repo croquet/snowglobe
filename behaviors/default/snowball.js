@@ -63,9 +63,6 @@ class TextActor {
 
 class TextPawn {
     setup() {
-
-        //this.shape.children.forEach((c) => this.shape.remove(c));
-        //this.shape.children = [];
         if (this.left_dots) {
             this.left_dots.forEach((d) => d.removeFromParent());
         }
@@ -81,16 +78,12 @@ class TextPawn {
     }
 
     step(currText){
-        //console.log('here4', currText);
         this.shape.children.forEach((c) => this.shape.remove(c));
-        //console.log(this.currDot);
         if(currText == 0){
             return;
         }
         const loader = new Microverse.THREE.FontLoader();
-        //let currText = this.text.substring(0,this.currDot);
         loader.load('./assets/fonts/helvetiker_bold.typeface.json',(font) => {
-            // do something with the font
             let geometry = new Microverse.THREE.TextGeometry(currText+"_", {
                 font: font,
                 size: .2,
@@ -107,9 +100,6 @@ class TextPawn {
             dot.rotation.set(0,0,0)
             this.shape.add(dot);
         });
-        //}
-        // this.currDot+=1;
-        // this.currDot = this.currDot%(this.text.length+1);
     }
 
     teardown() {
