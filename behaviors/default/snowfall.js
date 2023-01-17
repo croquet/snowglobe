@@ -1,3 +1,17 @@
+/*
+    This file contains 3 behaviors:
+        -dust
+        -snowmenu
+        -storm
+
+    Dust produces small drifting motes that can also be used as simle snowflakes.
+
+    Snowmenu creates a button on the menu which can be used to trigger 'storm'.
+
+    Storm slowly turns the screen to white before resetting the world ot the initial positions
+    and objects.
+*/
+
 class DustActor {
     setup(){
         this.listen("motes", "saveMotes")
@@ -132,9 +146,9 @@ class SnowStormPawn {
     }
     startStorm(){
         /*
-        when time to dreate flakes:
+        when time to create flakes:
         create snow flakes*/
-        //turn the screne white.
+        //turn the scene white.
         this.fadeToWhite();
         // rebuild world
         this.publish("storm", "reset");
@@ -208,7 +222,7 @@ class SnowStormMenuPawn {
 export default {
     modules: [
         {
-            name: "TutorialGif",
+            name: "Dust",
             actorBehaviors: [DustActor],
             pawnBehaviors: [DustPawn],
         },

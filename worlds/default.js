@@ -2,6 +2,7 @@
 // https://croquet.io
 // info@croquet.io
 
+
 export function init(Constants) {
     Constants.AvatarNames = [
         "newwhite", "madhatter", "marchhare", "queenofhearts", "cheshirecat", "alice"
@@ -9,7 +10,7 @@ export function init(Constants) {
 
     Constants.UserBehaviorDirectory = "behaviors/default";
     Constants.UserBehaviorModules = [
-        "carrot.js","lights.js", "snowfall.js", "snowball.js", "urlLink.js", "spawn.js","spinAndBob.js"
+        "lights.js", "snowfall.js", "snowball.js", "urlLink.js", "spawn.js","spinAndBob.js"
     ];
 
     Constants.DefaultCards = [
@@ -75,7 +76,7 @@ export function init(Constants) {
                 type: "object",
                 translation: [10, 0, 0],//-1], // [7.770442246960653, 1.7540892281749288, 13.950883253194933],
                 rotation: [0, 0, 0],
-                behaviorModules: ["TutorialGif"],
+                behaviorModules: ["Dust"],
                 shadow: true,
                 myScope: "left",
                 level: 1,

@@ -1,3 +1,14 @@
+/*
+    This file contains 3 behaviors:
+        -glowtext
+        -qrcode
+        -snowball
+
+    Glowtext and qrcode are unused in this world, and can be implemented to add an in world qrcode
+    linking to the scene.
+
+    Snowball contains the code to produce a snowball that is draggable in 2 dimentions.
+*/
 class TextActor {
     setup() {
         let actors = this.queryCards();
@@ -151,10 +162,6 @@ class SnowBallPawn {
         this.listen("translationSet", "translated");
         this.listen("rotationSet", "translated");
 
-    }
-
-    translated(_data) {
-        //this.scrollAreaPawn.say("updateDisplay");
     }
 
     moveMyself(evt) {
